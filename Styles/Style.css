@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Jacquard+12&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jacquard+12&family=VT323&display=swap');
+
+.jacquard-12-regular {
+  font-family: "Jacquard 12", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+  *{
+      color-scheme: light dark;
+      font-family: "VT323", serif;
+      font-weight: 400;
+      font-style: normal;
+      color: light-dark(black, white);
+      font-size: x-large;
+      background-color: light-dark(white, black);
+      image-rendering: pixelated;
+  }
+
+  h1{
+      font-family: "Jacquard 12", system-ui;
+      font-weight: 400;
+      font-style: normal;
+      color: red;
+      font-size: xx-large;
+  }
+  body{
+    h2{
+        font-family: "Jacquard 12", system-ui;
+        font-weight: 400;
+        font-style: normal;
+        font-size: x-large;
+    }
+    main{
+        img{
+            width: 100%;
+            .light{
+                img{
+                    filter: invert(1);
+                  }
+              }
+        }
+    }
+    footer{
+        p{
+        font-size: small;
+        }
+        #calanderDate{
+            font-size: x-small;
+        }
+    }
+}
+
+@media (prefered-colorscheme: light){
+    *{
+        img{
+                filter: invert(1);
+        }
+    }
+}
+
+
+  @media only screen and (max-width: 1920px){
+
+  }
+
+  @media only screen and (max-width: 1280px){
+
+  }
+
+  @media only screen and (max-width: 900px){
+
+  
+  }

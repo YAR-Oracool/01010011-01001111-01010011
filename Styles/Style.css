@@ -13,34 +13,138 @@
       font-weight: 400;
       font-style: normal;
       color: light-dark(black, white);
-      font-size: x-large;
+      font-size: medium;
       background-color: light-dark(white, black);
       image-rendering: pixelated;
+
+      button{
+        border-style: solid;
+        border-width: 3pt;
+        border-color: light-dark(black,white);
+        background-color: light-dark(lightgray,#555555);
+        height: fit-content;
+        width: 100%;
+      }
+      button:hover{
+        color: light-dark(blue, red);
+        border-color: light-dark(blue, red);
+      }
+      button:active{
+        color: light-dark(white, black);
+        background-color: light-dark(blue, red);
+        border-color: light-dark(blue, red);
+      }
+      button:focus{
+        border-color: light-dark(#AA5500FF, #ffff55);
+      }
+      .Active{
+        display: initial;
+      }
+      .Deactive{
+        display: none;
+      }
+      .Movement{
+        width: 35%;
+        height: 35%;
+    }
   }
 
   h1{
       font-family: "Jacquard 12", system-ui;
       font-weight: 400;
       font-style: normal;
-      color: red;
+      color: light-dark(blue, red);
       font-size: xx-large;
   }
   body{
-    h2{
-        font-family: "Jacquard 12", system-ui;
-        font-weight: 400;
-        font-style: normal;
-        font-size: x-large;
-    }
     main{
+        align-items: center;
+        align-content: space-between;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        gap: 12pt;
+
+        #Visuals{
+            flex-grow: 1;
+            width: 15%;
         img{
             width: 100%;
-            .light{
-                img{
-                    filter: invert(1);
-                  }
-              }
+            object-fit: contain;
         }
+        }
+        #Content{
+            display: flex;
+            flex-direction: row;
+            flex-grow: 2;
+            gap: 12pt;
+            flex-wrap: nowrap;
+
+        #Description{
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            flex-wrap: nowrap;
+
+            h2{
+                font-family: "Jacquard 12", system-ui;
+                font-weight: 400;
+                font-style: normal;
+                font-size: x-large;
+                color: light-dark(blue, red);
+                border-style: solid ;
+                border-color: light-dark(black,white);
+                border-width: 3pt;
+                border-bottom: 0;
+                width:fit-content;
+                padding: 3pt;
+                margin-bottom: 0;
+            }
+            p{
+                margin-top: 0;
+                border-style: solid ;
+                border-color: light-dark(black,white);
+                border-width: 3pt;
+                width: inherit;
+                padding: 3pt;
+            }
+        }
+        #Controlls{
+            flex-grow: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-content: center;
+            flex-wrap: nowrap;
+            gap: 12pt;
+
+            #Movement{
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column; 
+                flex-wrap: nowrap;
+                flex-basis: auto;
+                justify-content: center;
+                align-content: center;
+                #MidRow{
+                    flex-grow: 3;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    flex-wrap: nowrap;
+                }             
+            }
+
+            #Actions{
+            flex-grow: 1;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+             }
+            }
+    }
     }
     footer{
         p{
@@ -52,24 +156,62 @@
     }
 }
 
-@media (prefered-colorscheme: light){
+
+
+
+@media only screen and (max-width: 1920px){
+Body{
+    main{
+        #Content{
+            flex-grow: 1;
+            #Controlls{
+                flex-direction: column;
+                flex-wrap: nowrap;
+            }
+        }
+    }
+}
+}
+
+  @media only screen and (max-width: 1280px){
+    Body{
+        main{
+            #Visuals{
+            width:50%;
+        }
+            #Content{
+                flex-direction: column;
+                #Controlls{
+                    flex-direction: column;
+                    flex-wrap: nowrap;
+                }
+            }
+        }
+    }
+  }
+
+  @media only screen and (max-width: 682px){
+    Body{
+        main{
+            flex-direction: column;
+            #Visuals{
+                width: 100%;
+            }
+            #Content{
+                flex-direction: column;
+                #Controlls{
+                    flex-direction: column;
+                    flex-wrap: nowrap;
+                }
+            }
+        }
+    }
+  }
+
+  @media (prefers-color-scheme: light){
     *{
         img{
                 filter: invert(1);
         }
     }
 }
-
-
-  @media only screen and (max-width: 1920px){
-
-  }
-
-  @media only screen and (max-width: 1280px){
-
-  }
-
-  @media only screen and (max-width: 900px){
-
-  
-  }

@@ -8,10 +8,19 @@ class item {
 
 class Sector{
     constructor(name, num, alt, des){
-        const Name = name;
-        const Pic = "../Images/" + num + ".webp";
-        const indexX = num%10;
-        const indexY = num/10;
+        this.alt = alt;
+        this.name = name;
+        this.num = num;
+        this.des = des;
+        this.pic = "../Images/"+ this.num + ".webp";
+        this.indexX = this.num%10;
+        this.indexY = this.num/10;
+    }
+     summon(){
+        document.getElementById('scenery').src= this.pic;
+        document.getElementById('scenery').alt= this.alt;
+        document.getElementById('Title').innerText = this.name;
+        document.getElementById('Description').innerText= this.des;
     }
 }
 
@@ -54,12 +63,10 @@ function createDescription(){
     const Title = document.createElement("h2");
     Title.id = "Title";
     document.getElementById('Description').appendChild(Title);
-    document.getElementById('Title').innerText="DWADW";
     //Create paragraph section
     const Text = document.createElement("p");
     Text.id = "Text";
     document.getElementById('Description').appendChild(Text);
-    document.getElementById('Text').innerText="dwadawd";
 }
 
 function createMovement(){
@@ -104,24 +111,21 @@ function createActions(){
     const Actions = document.createElement("div");
     Actions.id = "Actions";
     document.getElementById('Content').appendChild(Actions);
+    document.getElementById(Actions).innerText="awdadwad";
 }
 
-
+const tent = new Sector('Tent',11, 'A tent behind a campfire', 'Everything is dark. Even teh fire feels cold. What is left from this crooked world?');
 
 function pageBuilder(){
     reset();
-
     createVisual();
-
     createContent();
-
     createDescription();
-
-    createActions();
-
     createMovement();
+    createActions();
 }
 
 window.onload = function (){
     pageBuilder();
+    tent.summon();
 }

@@ -16,7 +16,7 @@ class Sector{
         this.indexX = this.num%10;
         this.indexY = this.num/10;
     }
-     summon(){
+    static summon(){
         document.getElementById('scenery').src= this.pic;
         document.getElementById('scenery').alt= this.alt;
         document.getElementById('Title').innerText = this.name;
@@ -37,6 +37,7 @@ function createVisual(){
     const Image = document.createElement("img");
     Image.id = "scenery";
     document.getElementById('Visuals').appendChild(Image);
+    document.getElementById('scenery').alt="test"
 }
 
 function createContent(){
@@ -73,7 +74,7 @@ function createMovement(){
     //Create move up button
     const Up = document.createElement("button");
     Up.id = "Up";
-    Up.innerText="Move Up"
+    Up.innerText="Move Up";
     Up.classList.add("Movement");
     Up.classList.add("Movement");
     document.getElementById('Movement').appendChild(Up);
@@ -85,14 +86,14 @@ function createMovement(){
     //Create move Left button
     const Left = document.createElement("button");
     Left.id = "Left";
-    Left.innerText="Move Left"
+    Left.innerText="Move Left";
     Left.classList.add("Movement");
     Left.classList.add("Active");
     document.getElementById('MidRow').appendChild(Left);
     //Create move Right button
     const Right = document.createElement("button");
     Right.id = "Right";
-    Right.innerText="Move Right"
+    Right.innerText="Move Right";
     Right.classList.add("Movement");
     Right.classList.add("Active");
     document.getElementById('MidRow').appendChild(Right);
@@ -100,7 +101,7 @@ function createMovement(){
     //Create move down button
     const Down = document.createElement("button");
     Down.id = "Down";
-    Down.innerText="Move Down"
+    Down.innerText="Move Down";
     Down.classList.add("Movement");
     Down.classList.add("Active");
     document.getElementById('Movement').appendChild(Down);
@@ -111,7 +112,7 @@ function createActions(){
     const Actions = document.createElement("div");
     Actions.id = "Actions";
     document.getElementById('Content').appendChild(Actions);
-    document.getElementById(Actions).innerText="awdadwad";
+    document.getElementById('Actions').innerText="awdadwad";
 }
 
 const tent = new Sector('Tent',11, 'A tent behind a campfire', 'Everything is dark. Even teh fire feels cold. What is left from this crooked world?');

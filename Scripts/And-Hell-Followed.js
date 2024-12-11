@@ -12,15 +12,15 @@ class Sector{
         this.name = name;
         this.num = num;
         this.des = des;
-        this.pic = "../Images/"+ this.num + ".webp";
+        this.pic = "../Images/" + this.num + ".webp";
         this.indexX = this.num%10;
         this.indexY = this.num/10;
     }
-    static summon(){
+    summon(){
         document.getElementById('scenery').src= this.pic;
         document.getElementById('scenery').alt= this.alt;
         document.getElementById('Title').innerText = this.name;
-        document.getElementById('Description').innerText= this.des;
+        document.getElementById('Text').innerText= this.des;
     }
 }
 
@@ -127,6 +127,7 @@ function pageBuilder(){
 }
 
 window.onload = function (){
+
     pageBuilder();
     tent.summon();
 }

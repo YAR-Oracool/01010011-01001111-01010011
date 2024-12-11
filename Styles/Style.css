@@ -129,7 +129,7 @@
                 justify-content: center;
                 align-content: center;
                 #MidRow{
-                    flex-grow: 3;
+                    flex-grow: 1;
                     display: flex;
                     flex-direction: row;
                     justify-content: space-between;
@@ -147,10 +147,22 @@
     }
     }
     footer{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        height: fit-content;
+        padding-left: 10pt;
+        padding-right: 10pt;
+        background-color: light-dark(black,white);
+
         p{
-        font-size: small;
+            color: light-dark(white,black);
+            background-color: light-dark(black,white);
+            font-size: small;
         }
         #calanderDate{
+            color: light-dark(white,black);
+            background-color: light-dark(black,white);
             font-size: x-small;
         }
     }

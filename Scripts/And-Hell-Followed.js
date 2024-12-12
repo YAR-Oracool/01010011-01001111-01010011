@@ -1,3 +1,5 @@
+const ShowCase = false;
+
 class Player{
     constructor(name, num){
         this.name = name;
@@ -11,6 +13,7 @@ class Player{
         if (this.Y > 0){
             this.Y--;
             this.attempt = 0;
+            this.MoveTo();
             this.checkMove();
         }
         else{
@@ -35,19 +38,89 @@ class Player{
     MoveDown(){
         if (this.Y < 1){
             this.Y++;
+            this.attempt = 0;
+            this.MoveTo();
             this.checkMove();
+        }
+        else{
+            switch (this.attempt){
+                case 0:
+                    Error(this.Messeges[this.attempt]);
+                    this.attempt++;
+                    break;
+                    
+                case 1:
+                    Error(this.Messeges[this.attempt]);
+                    this.attempt++;
+                    break;
+
+                case 2:
+                    Error(this.Messeges[this.attempt]);
+                    setTimeout(this.kill, 3000);
+                    break;
+            }
         }
     }
     MoveLeft(){
-        if (this.X > 0 ){
+        if (this.X > 0){
+            if(this.Y != 0 ){
             this.X--;
+            this.attempt = 0;
+            this.MoveTo();
             this.checkMove();
+            }
+            else{
+                Error('The Path is blocked.');
+            }
+        }
+        else{
+            switch (this.attempt){
+                case 0:
+                    Error(this.Messeges[this.attempt]);
+                    this.attempt++;
+                    break;
+                    
+                case 1:
+                    Error(this.Messeges[this.attempt]);
+                    this.attempt++;
+                    break;
+
+                case 2:
+                    Error(this.Messeges[this.attempt]);
+                    setTimeout(this.kill, 3000);
+                    break;
+            }
         }
     }
     MoveRight(){
         if (this.X < 1){
+            if(this.Y !=0){
             this.X++;
+            this.attempt = 0;
+            this.MoveTo();
             this.checkMove();
+        }
+        else{
+            Error('The Path is blocked.');
+        }
+        }
+        else{
+            switch (this.attempt){
+                case 0:
+                    Error(this.Messeges[this.attempt]);
+                    this.attempt++;
+                    break;
+                    
+                case 1:
+                    Error(this.Messeges[this.attempt]);
+                    this.attempt++;
+                    break;
+
+                case 2:
+                    Error(this.Messeges[this.attempt]);
+                    setTimeout(this.kill, 3000);
+                    break;
+            }
         }
     }
 
@@ -67,7 +140,6 @@ class Player{
         {
             document.getElementById('Down').classList.remove('Unavailable');
         }
-
         //Check X axis
         if (this.X == 1){
             document.getElementById('Right').classList.add('Unavailable');
@@ -88,6 +160,10 @@ class Player{
     kill(){
         window.location.href="Death.html" 
     }
+
+    MoveTo(){
+        Map[this.X][this.Y].summon();
+    }
 }
 
 class item {
@@ -104,15 +180,24 @@ class Sector{
         this.name = name;
         this.num = num;
         this.des = des;
+        this.alter=false;
         this.pic = "../Images/" + this.num + ".webp";
-        this.indexX = this.num%10;
-        this.indexY = this.num/10;
     }
     summon(){
         document.getElementById('scenery').src= this.pic;
         document.getElementById('scenery').alt= this.alt;
         document.getElementById('Title').innerText = this.name;
         document.getElementById('Text').innerText= this.des;
+    }
+    Altered(){
+        this.alter=true;
+    }
+    altMode(){
+        if(this.alter == true)
+        {
+            this.pic = "../Images/Alt" + this.num + ".webp";
+            document.getElementById('scenery').src= this.pic;
+        }
     }
 }
 
@@ -125,7 +210,7 @@ function Error(Messege){
 }
 
 function clearAlert()
-{
+{   
     document.getElementById('Alerts').classList.remove('Active');
     document.getElementById('Alerts').classList.remove('Error');
     document.getElementById('Alerts').classList.remove('Quest');
@@ -233,6 +318,7 @@ function createMovement(){
     Up.classList.add("Movement");
     Up.classList.add("Active");
     document.getElementById('Movement').appendChild(Up);
+    document.getElementById('Up').addEventListener('click',function(){Player1.MoveUp();});
 
     //Create midrow button section
     const MidRow = document.createElement("div");
@@ -245,6 +331,7 @@ function createMovement(){
     Left.classList.add("Movement");
     Left.classList.add("Active");
     document.getElementById('MidRow').appendChild(Left);
+    document.getElementById('Left').addEventListener('click',function(){Player1.MoveLeft();});
     //Create move Right button
     const Right = document.createElement("button");
     Right.id = "Right";
@@ -252,6 +339,7 @@ function createMovement(){
     Right.classList.add("Movement");
     Right.classList.add("Active");
     document.getElementById('MidRow').appendChild(Right);
+    document.getElementById('Right').addEventListener('click',function(){Player1.MoveRight();});
     
     //Create move down button
     const Down = document.createElement("button");
@@ -260,6 +348,7 @@ function createMovement(){
     Down.classList.add("Movement");
     Down.classList.add("Active");
     document.getElementById('Movement').appendChild(Down);
+    document.getElementById('Down').addEventListener('click',function(){Player1.MoveDown();});
 
     Player1.checkMove();
 }
@@ -268,26 +357,32 @@ function createActions(){
         //make use button
         const Use = document.createElement("button");
         Use.id = "Use";
-        Use.innerText="Use";
+        Use.type = "submit";
+        Use.innerText="Use (k)";
         document.getElementById('Actions').appendChild(Use);
         //make Inventory button
         const Inventory = document.createElement("button");
         Inventory.id = "Inventory";
-        Inventory.innerText="Inventory";
+        Inventory.type = "submit";
+        Inventory.innerText="Inventory (J)";
         document.getElementById('Actions').appendChild(Inventory);
+        document.getElementById('Inventory').addEventListener('click',function(){Error('Not Implemented.');});
+
         //make giveUp button
         const giveUp = document.createElement("button");
         giveUp.id = "giveUp";
-        giveUp.innerText="Give Up";
+        giveUp.type = "submit";
+        giveUp.innerText="Give Up (K)";
         document.getElementById('Actions').appendChild(giveUp);
-        //make Observe button
-        const Observe = document.createElement("button");
-        Observe.id = "Observe";
-        Observe.innerText="Observe";
-        document.getElementById('Actions').appendChild(Observe);
         document.getElementById('giveUp').addEventListener('click', function(){
             Warn(2);
         });
+
+        //make Observe button
+        const Observe = document.createElement("button");
+        Observe.id = "Observe";
+        Observe.innerText="Observe (L)";
+        document.getElementById('Actions').appendChild(Observe);
 }
 
 function pageBuilder(){
@@ -303,12 +398,20 @@ function pageBuilder(){
 
 let Player1 = new Player('Joe', 11)
 
-const tent = new Sector('Tent',11, 'A tent behind a campfire', 'Everything is dark. Even the fire feels cold. You hear. Inside the tent is shrouded in darkness. To your left you hear someone carving something on wood. while a fall into the abyss awaits you everywhere else.');
+const Map = [[],[]]
+Map[0][0]= new Sector('Cave','00', 'A dark cave.', 'The wind howls and pushed you inside the cave. As if it is inviting you to see what is inside the cave.');
+Map[0][1]= new Sector('The Forest','01', 'A tree trunk with some markings on it.', 'You step into teh forest. The carving sounds you heard  are from this tree trunk. It looks like tik tack toe. What prize would you win if you win this game?');
+
+Map[1][0]= new Sector('Inside the tent','10', 'Inside a tent with a bed.', 'There is nothing left to do but sleep. What else can you do?');
+Map[1][1]= new Sector('Tent','11', 'A tent behind a campfire', 'Everything is dark. Even the fire feels cold. You hear. Inside the tent is shrouded in darkness. To your left you hear someone carving something on wood. while a fall into the abyss awaits you everywhere else.');
+
+   
+
 
 window.onload = function (){
     document.getElementById('calanderDate').innerText= "2024 - " + new Date().getFullYear();
     pageBuilder();
-    tent.summon();
+    Player1.MoveTo();
 }
 
 document.getElementById('toTitle').addEventListener('click', function(){
@@ -348,6 +451,23 @@ window.addEventListener('keydown', function(keyPress){
         case 'D':
         case 'ArrowRight':
             Player1.MoveRight();
+            break;
+
+        case 'h':
+        case 'H':
+            break;
+
+        case 'j':
+        case 'J':
+            Error('Not Implemented.')
+            break;
+
+        case 'k':
+        case 'K':
+            break;
+
+        case 'l':
+        case 'L':
             break;
     }
 });

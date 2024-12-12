@@ -134,10 +134,10 @@
         flex-direction: row;
         justify-content: space-between;
         flex-wrap: nowrap;
-        gap: 12pt;
+        gap: 3pt;
 
         #Visuals{
-            width: 30%;
+            width: 40%;
         img{
             width: 100%;
         }
@@ -270,7 +270,7 @@
             width:50%;
             }
             #Content{
-                width: 100%;
+                width: 99%;
                 #Description{
                     width: 50%;
                 }

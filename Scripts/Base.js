@@ -1,9 +1,16 @@
 function summonGame(){
     window.location.href="HTML/01010011-01001111-01010011.html";
 }
+function summonCredits(){
+    window.location.href="HTML/Credits.html";
+}
 
 document.getElementById("ToGame").addEventListener('click', function(){
     summonGame();
+})
+
+document.getElementById("toCredits").addEventListener('click', function(){
+    summonCredits();
 })
 
 window.onload = function (){
@@ -11,8 +18,12 @@ window.onload = function (){
 }
 
 window.addEventListener('keydown', function(keyPress){
-    if (keyPress.key == 'Enter')
-    {
-        summonGame();
+    switch (keyPress.key){
+        case 'Enter':
+            summonGame();
+            break;
+        case 'Backspace':
+            summonCredits();
+            break;
     }
 });

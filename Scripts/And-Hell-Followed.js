@@ -164,14 +164,54 @@ class Player{
     MoveTo(){
         Map[this.X][this.Y].summon();
     }
+
+    getLocation(){
+        return (this.X*10)+this.Y;
+    }
 }
 
 class item {
-    constructor(name, have, pic){
-        const Name = name;
-        let Obtained = have;
-        const Pic = "../Images/Items/" + pic + ".webp";
+    constructor(name, alt,des){
+        this.des=des;
+        this.alt=alt;
+        this.name = name;
+        this.Obtained = false;
+        this.pic = "../Images/Items/" + this.name + ".webp";
+        this.alter=false;
     }
+
+    AltMode(){
+        return this.alter;
+    }
+
+    Altered(des){
+            this.alter=true;  
+            this.des=des;
+            this.pic = "../Images/Items/Alt" + this.name + ".webp";
+            this.summon();
+    }
+
+    got(){
+        return this.Obtained;
+    }
+
+    summon(){
+        this.Obtained=true;
+        document.getElementById('ItemDescription').innerText=this.des;
+        document.getElementById('ItemPic').src=this.pic;
+        document.getElementById('ItemPic').alt=this.alt;
+        document.getElementById('ItemNotification').classList.remove('Deactive');
+        document.getElementById('ItemNotification').classList.add('ItemNotification')
+        document.getElementById('ItemNotification').classList.add('Active');
+        setTimeout(this.Vanquish,3000);
+    }
+
+    Vanquish(){
+        document.getElementById('ItemNotification').classList.remove('ItemNotification');
+        document.getElementById('ItemNotification').classList.remove('Active');
+        document.getElementById('ItemNotification').classList.add('Deactive');
+    }
+
 }
 
 class Sector{
@@ -189,22 +229,36 @@ class Sector{
         document.getElementById('Title').innerText = this.name;
         document.getElementById('Text').innerText= this.des;
     }
-    Altered(){
-        this.alter=true;
+    AltMode(){
+        return this.alter;
     }
-    altMode(){
-        if(this.alter == true)
-        {
+    Altered(des){
+        this.alter=true;  
+            this.des=des;
             this.pic = "../Images/Alt" + this.num + ".webp";
-            document.getElementById('scenery').src= this.pic;
-        }
+            this.summon();
     }
+}
+
+function Quest(Messege){
+    document.getElementById('Alerts').classList.remove('Deactive');
+    document.getElementById('Alerts').classList.add('Active');
+    document.getElementById('Alerts').classList.add('Quest');
+    document.getElementById('Alerts').innerText=Messege;
+    setTimeout(clearAlert, 3000);
 }
 
 function Error(Messege){
     document.getElementById('Alerts').classList.remove('Deactive');
     document.getElementById('Alerts').classList.add('Active');
     document.getElementById('Alerts').classList.add('Error');
+    document.getElementById('Alerts').innerText=Messege;
+    setTimeout(clearAlert, 3000);    
+}
+
+function Notice(Messege){
+    document.getElementById('Alerts').classList.remove('Deactive');
+    document.getElementById('Alerts').classList.add('Active');
     document.getElementById('Alerts').innerText=Messege;
     setTimeout(clearAlert, 3000);    
 }
@@ -219,7 +273,6 @@ function clearAlert()
 }
 
 function Warn(choice){
-    console.log('Checking')
     document.getElementById('Warning').classList.remove('Dective');
     document.getElementById('Warning').classList.add('Active');
     document.getElementById('Warning').classList.add('Error');
@@ -229,7 +282,6 @@ function Warn(choice){
     document.getElementById('Warning').classList.remove('Active');
     document.getElementById('Warning').classList.remove('Error');
     document.getElementById('Warning').classList.remove('Warning');
-    console.log('selecttrue')
         switch (choice){
             case 0:
                 window.location.href="../index.html";
@@ -360,6 +412,10 @@ function createActions(){
         Use.type = "submit";
         Use.innerText="Use (k)";
         document.getElementById('Actions').appendChild(Use);
+        document.getElementById('Use').addEventListener('click',function(){
+            Use();
+        });
+
         //make Inventory button
         const Inventory = document.createElement("button");
         Inventory.id = "Inventory";
@@ -383,6 +439,9 @@ function createActions(){
         Observe.id = "Observe";
         Observe.innerText="Observe (L)";
         document.getElementById('Actions').appendChild(Observe);
+        document.getElementById('Observe').addEventListener('click',function(){
+            Observes();
+        });
 }
 
 function pageBuilder(){
@@ -398,6 +457,8 @@ function pageBuilder(){
 
 let Player1 = new Player('Joe', 11)
 
+const Pillow = new item('Pillow','A soft pillow.','You Obtained a soft looking pillow Is it yours? It should be nobody else exists.')
+
 const Map = [[],[]]
 Map[0][0]= new Sector('Cave','00', 'A dark cave.', 'The wind howls and pushed you inside the cave. As if it is inviting you to see what is inside the cave.');
 Map[0][1]= new Sector('The Forest','01', 'A tree trunk with some markings on it.', 'You step into teh forest. The carving sounds you heard  are from this tree trunk. It looks like tik tack toe. What prize would you win if you win this game?');
@@ -405,13 +466,52 @@ Map[0][1]= new Sector('The Forest','01', 'A tree trunk with some markings on it.
 Map[1][0]= new Sector('Inside the tent','10', 'Inside a tent with a bed.', 'There is nothing left to do but sleep. What else can you do?');
 Map[1][1]= new Sector('Tent','11', 'A tent behind a campfire', 'Everything is dark. Even the fire feels cold. You hear. Inside the tent is shrouded in darkness. To your left you hear someone carving something on wood. while a fall into the abyss awaits you everywhere else.');
 
-   
-
-
 window.onload = function (){
     document.getElementById('calanderDate').innerText= "2024 - " + new Date().getFullYear();
     pageBuilder();
     Player1.MoveTo();
+    Quest("Find your pillow and sleep.");
+}
+
+function Observes(){
+    switch (Player1.getLocation()){
+        case 0:
+            if(Pillow.got() == false){
+            Pillow.summon();
+            }
+            else{
+                Error('The cave is empty');
+            }
+            break;
+
+        case 1:
+            Notice('The tree stop has crosses and circles on it. Inside a checkerbaord.');
+            break;
+
+        case 10:
+            Notice('The bed is cozy like it always is.');
+            break;
+        
+        case 11:
+            break;
+    }
+}
+
+function Uses(){
+    switch (Player1.getLocation()){
+        case 0:
+            break;
+
+        case 1:
+            
+            break;
+
+        case 10:
+            break;
+        
+        case 11:
+            break;
+    }
 }
 
 document.getElementById('toTitle').addEventListener('click', function(){
